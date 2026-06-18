@@ -7,6 +7,7 @@ import CategoryBody from './components/body/category page/body'
 import ProductBody from './components/body/product page/body'
 import ProductPage from './components/body/product page/products'
 import SearchPage from './components/body/search page/body'
+import ShoppingCart from './components/body/shopping cart page/body'
 import MainLayout from './components/layout/main-layout'
 import productAction from './store/actions/product'
 import themesSelector from './store/selectors/themeSelector'
@@ -42,6 +43,7 @@ function App() {
           <Route path="product" element={<ProductPage />} />
           <Route path="product/:id" element={<ProductBody />} />
           <Route path="search" element={<SearchPage />} />
+          <Route path="cart" element={<ShoppingCart />} />
           <Route path=":category" element={<CategoryBody />} />
         </Route>
       </Routes>
