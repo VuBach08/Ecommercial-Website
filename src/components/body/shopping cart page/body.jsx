@@ -9,10 +9,12 @@ import SecondaryText from "../../secondary-text";
 import Title from "../../section-title";
 import "./body.css";
 import CartCard from "./cart-card";
+import { getCartTotals } from "../../../utils/product";
 const ShoppingCart = () => {
   useScrollToTop();
   const cartList = useSelector(cartSelector.cartProducts);
   const dispatch = useDispatch();
+  const totals = useMemo(() => getCartTotals(cartList), [cartList]);
 
   const HandleClear = () => {
     dispatch(cartAction.clearProduct());
@@ -48,6 +50,36 @@ const ShoppingCart = () => {
               </div>
             )}
           </div>
+          <section className="flex-col-not-center cart-total borderdiv">
+            <h3 className="fs-400 font-clrs">Cart Total</h3>
+            <div>
+              <p className="fs-300 font-clrs">Subtotal:</p>
+              <p className="font-clrs">{numberWithCommas(totals.subtotal)}₫</p>
+            </div>
+            <div>
+              <p className="fs-300 font-clrs">Tax:</p>
+              <p className="font-clrs">
+                {numberWithCommas(totals.tax)}₫
+              </p>
+            </div>
+            <div>
+              <p className="fs-300 font-clrs">Shipping:</p>
+              <p className=" font-clrs">{numberWithCommas(totals.shippingFee)}₫</p>
+            </div>
+            <div>
+              <h4 className="fs-300 font-clrs">Total:</h4>
+              <p className="font-clrs">
+                {numberWithCommas(totals.total)}
+                ₫
+              </p>
+            </div>
+            <Link
+              className="btn primary-bg fs-300 priamry-btn center"
+              to="/checkout"
+            >
+              <strong className="center font-clrs">Check Out</strong>
+            </Link>
+          </section>
         </section>
       </main>
     </>
