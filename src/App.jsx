@@ -8,6 +8,7 @@ import ProductBody from './components/body/product page/body'
 import ProductPage from './components/body/product page/products'
 import AuthBody from './components/body/auth page/body-login'
 import AuthBodySignin from './components/body/auth page/body-sign-in'
+import ProfilePage from './components/body/auth page/profile'
 import SearchPage from './components/body/search page/body'
 import ShoppingCart from './components/body/shopping cart page/body'
 import MainLayout from './components/layout/main-layout'
@@ -47,6 +48,7 @@ function App() {
           <Route path="search" element={<SearchPage />} />
           <Route path="auth/login" element={<AuthBody />} />
           <Route path="auth/register" element={<AuthBodySignin />} />
+          <Route path="auth/profile" element={<ProfilePage />} />
           <Route path="cart" element={<ShoppingCart />} />
           <Route path=":category" element={<CategoryBody />} />
         </Route>
