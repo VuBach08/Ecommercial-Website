@@ -11,7 +11,7 @@ import CartCard from "./cart-card";
 import StateOne from "./state-1";
 import StateTwo from "./state-2";
 import StateThree from "./state-3";
-// import StateFour from "./state-4";
+import StateFour from "./state-4";
 import { getCartTotals, getLineTotal, normalizeProduct } from "../../../utils/product";
 
 const CheckoutState = () => {
@@ -242,7 +242,13 @@ const CheckoutState = () => {
             totals={totals}
           />
         ) : (
-          <div>Order functionality will be added in next step</div>
+          <StateFour
+            totals={totals}
+            error={error}
+            isSubmitting={isSubmitting}
+            onPlaceOrder={handlePlaceOrder}
+            orderId={orderId}
+          />
         )}
         <section className="grid border-btn" id="cart-page">
           <h3 className="fs-400 font-clrs">Cart</h3>
