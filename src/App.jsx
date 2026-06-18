@@ -13,6 +13,7 @@ import ProfilePage from './components/body/auth page/profile'
 import SearchPage from './components/body/search page/body'
 import ShoppingCart from './components/body/shopping cart page/body'
 import MainLayout from './components/layout/main-layout'
+import CheckOut from './components/body/checkout page/body'
 import authAction from './store/actions/auth'
 import productAction from './store/actions/product'
 import authSelector from './store/selectors/authSelector'
@@ -75,6 +76,14 @@ function App() {
           <Route path="product" element={<ProductPage />} />
           <Route path="product/:id" element={<ProductBody />} />
           <Route path="search" element={<SearchPage />} />
+          <Route
+            path="checkout"
+            element={
+              <ProtectedRoute>
+                <CheckOut />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="auth/login"
             element={
