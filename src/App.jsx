@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
@@ -13,12 +13,40 @@ import ProfilePage from './components/body/auth page/profile'
 import SearchPage from './components/body/search page/body'
 import ShoppingCart from './components/body/shopping cart page/body'
 import MainLayout from './components/layout/main-layout'
+import authAction from './store/actions/auth'
 import productAction from './store/actions/product'
+import authSelector from './store/selectors/authSelector'
 import themesSelector from './store/selectors/themeSelector'
+
+const ProtectedRoute = ({ children }) => {
+  const isInitialized = useSelector(authSelector.selectIsInitialized)
+  const isLoggedIn = useSelector(authSelector.selectIsLoggedIn)
+
+  if (!isInitialized) {
+    return null
+  }
+
+  return isLoggedIn ? children : <Navigate to="/auth/login" replace />
+}
+
+const GuestRoute = ({ children }) => {
+  const isInitialized = useSelector(authSelector.selectIsInitialized)
+  const isLoggedIn = useSelector(authSelector.selectIsLoggedIn)
+
+  if (!isInitialized) {
+    return null
+  }
+
+  return isLoggedIn ? <Navigate to="/auth/profile" replace /> : children
+}
 
 function App() {
   const dispatch = useDispatch()
   const theme = useSelector(themesSelector.selectThemes)
+
+  useEffect(() => {
+    dispatch(authAction.initializeAuth())
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(productAction.fetchProducts()).catch(() => {})
@@ -47,12 +75,34 @@ function App() {
           <Route path="product" element={<ProductPage />} />
           <Route path="product/:id" element={<ProductBody />} />
           <Route path="search" element={<SearchPage />} />
-          <Route path="auth/login" element={<AuthBody />} />
-          <Route path="auth/register" element={<AuthBodySignin />} />
+          <Route
+            path="auth/login"
+            element={
+              <GuestRoute>
+                <AuthBody />
+              </GuestRoute>
+            }
+          />
+          <Route
+            path="auth/register"
+            element={
+              <GuestRoute>
+                <AuthBodySignin />
+              </GuestRoute>
+            }
+          />
           <Route path="auth/forgot-password" element={<ForgotPassword />} />
-          <Route path="auth/profile" element={<ProfilePage />} />
+          <Route
+            path="auth/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="cart" element={<ShoppingCart />} />
           <Route path=":category" element={<CategoryBody />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </div>
