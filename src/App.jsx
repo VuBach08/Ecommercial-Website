@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import './App.css'
+import CategoryBody from './components/body/category page/body'
 import ProductBody from './components/body/product page/body'
 import ProductPage from './components/body/product page/products'
 import MainLayout from './components/layout/main-layout'
@@ -39,6 +40,7 @@ function App() {
           />
           <Route path="product" element={<ProductPage />} />
           <Route path="product/:id" element={<ProductBody />} />
+          <Route path=":category" element={<CategoryBody />} />
         </Route>
       </Routes>
     </div>
