@@ -1,12 +1,20 @@
 import { Route, Routes } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import './App.css'
+import ProductPage from './components/body/product page/products'
 import MainLayout from './components/layout/main-layout'
+import productAction from './store/actions/product'
 import themesSelector from './store/selectors/themeSelector'
 
 function App() {
+  const dispatch = useDispatch()
   const theme = useSelector(themesSelector.selectThemes)
+
+  useEffect(() => {
+    dispatch(productAction.fetchProducts()).catch(() => {})
+  }, [dispatch])
 
   return (
     <div className={clsx('App background-clrs', theme === 'dark' ? 'darkmode' : null)}>
@@ -28,6 +36,7 @@ function App() {
               </main>
             }
           />
+          <Route path="product" element={<ProductPage />} />
         </Route>
       </Routes>
     </div>
