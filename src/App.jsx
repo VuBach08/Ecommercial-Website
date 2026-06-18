@@ -1,3 +1,4 @@
+import MainPage from './components/body/main page/body'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -57,22 +58,7 @@ function App() {
     <div className={clsx('App background-clrs', theme === 'dark' ? 'darkmode' : null)}>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route
-            index
-            element={
-              <main className="primary-body">
-                <section className="hero-section">
-                  <div className="hero-copy">
-                    <p className="secondary-clrs">Clean skincare storefront</p>
-                    <h2>Ecommercial Website</h2>
-                    <p className="hero-description">
-                      A focused React shopping experience for products, cart, checkout, and customer accounts.
-                    </p>
-                  </div>
-                </section>
-              </main>
-            }
-          />
+          <Route index element={<MainPage />} />
           <Route path="product" element={<ProductPage />} />
           <Route path="product/:id" element={<ProductBody />} />
           <Route path="search" element={<SearchPage />} />
