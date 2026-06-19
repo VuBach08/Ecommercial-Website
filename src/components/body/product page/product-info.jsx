@@ -2,6 +2,8 @@ import SecondaryText from "../../secondary-text";
 import Heart from "../../../asset/icons8-heart-50.png";
 import FillHeart from "../../../asset/icons8-heart-filled-50 .png";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import cartAction from "../../../store/actions/cart";
 import numberWithCommas from "../../display";
 import ProductImage from "../../product-image";
 import { normalizeProduct } from "../../../utils/product";
@@ -11,6 +13,7 @@ const ProductInfo = (props) => {
   const [amount, setAmount] = useState(1);
   const product = normalizeProduct(props.product);
   const { price, name, image, category, id, description } = product;
+  const dispatch = useDispatch();
 
   const amountController = (param) => {
     if (param === "-" && amount > 1) {
@@ -21,6 +24,17 @@ const ProductInfo = (props) => {
     }
   };
 
+  const addItemToCart = () => {
+    dispatch(
+      cartAction.addProduct({
+        ...product,
+        id: id,
+        name: name,
+        amount: amount,
+        price: price,
+      }),
+    );
+  };
   return (
     <section className="product-detail">
       <div className="product-detail-media">
@@ -63,7 +77,7 @@ const ProductInfo = (props) => {
           </div>
           <button
             className="btn primary-bg fs-300 priamry-btn"
-            type="button"
+            onClick={addItemToCart}
           >
             <strong>Add to Cart</strong>
           </button>
