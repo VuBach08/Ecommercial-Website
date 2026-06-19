@@ -15,6 +15,10 @@ import SearchPage from './components/body/search page/body'
 import ShoppingCart from './components/body/shopping cart page/body'
 import MainLayout from './components/layout/main-layout'
 import CheckOut from './components/body/checkout page/body'
+import Blog from './components/body/blog page/body'
+import About from './components/body/about page/body'
+import Contact from './components/body/contact page/body'
+import StaticPage from './components/body/static page/body'
 import authAction from './store/actions/auth'
 import productAction from './store/actions/product'
 import authSelector from './store/selectors/authSelector'
@@ -96,6 +100,18 @@ function App() {
             }
           />
           <Route path="cart" element={<ShoppingCart />} />
+          <Route path="blog" element={<Blog />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="terms" element={<StaticPage />} />
+          <Route path="privacy" element={<StaticPage />} />
+          <Route path="returns" element={<StaticPage />} />
+          <Route path="shipping" element={<StaticPage />} />
+          <Route path="data-protection" element={<StaticPage />} />
+          <Route path="team" element={<StaticPage />} />
+          <Route path="careers" element={<StaticPage />} />
+          <Route path="vision" element={<StaticPage />} />
+          <Route path="culture" element={<StaticPage />} />
           <Route path=":category" element={<CategoryBody />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
